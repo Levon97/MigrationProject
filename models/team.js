@@ -15,9 +15,10 @@ module.exports = (sequelize, DataTypes) => {
   };
   Team.init({
     teamId: {
-      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
       primaryKey: true,
-      autoIncrement: true
+      type: DataTypes.INTEGER
     },
     teamName: DataTypes.STRING
   }, {

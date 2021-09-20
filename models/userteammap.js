@@ -1,9 +1,11 @@
 'use strict';
+const User = require("./user");
+const Team = require("./team");
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class UserTeamMap extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -12,17 +14,30 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
     }
   };
-  User.init({
-    userId: {
+  UserTeamMap.init({
+    id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER 
     },
-    userName: DataTypes.STRING
+    userId:  {
+      type: DataTypes.INTEGER,
+      references: {
+        model: User,
+        key: 'userId'
+      }
+    },
+    teamId:   {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Team,
+        key: 'teamId'
+      }
+    }
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'UserTeamMap',
   });
-  return User;
+  return UserTeamMap;
 };
